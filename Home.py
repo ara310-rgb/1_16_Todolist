@@ -3,7 +3,7 @@ import streamlit as st
 # 1. 페이지 설정
 st.set_page_config(page_title="수출역량진단 서비스", layout="wide")
 
-# 세션 상태 초기화 (메인 페이지 구동을 위해 유지)
+# 세션 상태 초기화 (메뉴 구동을 위해 유지)
 if 'page' not in st.session_state:
     st.session_state.page = "home"
 
@@ -160,18 +160,18 @@ st.markdown("<div class='header-container'><h1 style='font-size: 40px;'>수출�
 col_l, col_btn1, col_btn2, col_r = st.columns([0.6, 1, 1, 0.6])
 
 with col_btn1:
-    # "모의 테스트 시작" 클릭 시 pages/question_1.py 파일로 이동
+    # "모의 테스트 시작" 클릭 시 pages/모의테스트.py 파일로 이동
     if st.button("모의 테스트 시작", key="mock_test_btn", use_container_width=True):
-        st.switch_page("pages/question_1.py")
+        st.switch_page("pages/모의테스트.py")
 
 with col_btn2:
-    # "평가보고서 신청하기" 클릭 시 pages/question_2.py 파일로 이동 (가정)
+    # "평가보고서 신청하기" 클릭 시 pages/신청서작성.py 파일로 이동
     if st.button("평가보고서 신청하기", key="top_btn", use_container_width=True):
-        st.switch_page("pages/question_2.py")
+        st.switch_page("pages/신청서작성.py")
 
 st.markdown("<br><hr>", unsafe_allow_html=True)
 
-# [이하 이모지 배너 및 섹션 디자인 유지]
+# [이모지 배너 및 섹션 디자인 유지]
 st.markdown('''
 <div class="premium-emoji-container">
     <div class="emoji-track">
