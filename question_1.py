@@ -32,7 +32,14 @@ st.markdown("""
 
     .question-title { font-size: 1.05rem; font-weight: 700; color: #334155; }
     .result-text { font-size: 1.2rem; font-weight: 700; color: #475569; line-height: 1.6; }
-    .feedback-card { text-align: center; margin-top: 15px; margin-bottom: 20px; border-left: 5px solid #94a3b8; }
+    
+    /* 결과 피드백 카드 - 왼쪽 선 디자인 제거 및 중앙 정렬 유지 */
+    .feedback-card { 
+        text-align: center; 
+        margin-top: 15px; 
+        margin-bottom: 20px; 
+        border-left: none !important; /* 파란색/회색 선 제거 */
+    }
 
     /* 진단 버튼 디자인 */
     div[data-testid="stForm"] button {
@@ -52,6 +59,7 @@ def typing_effect(text):
     displayed_text = ""
     for char in text:
         displayed_text += char
+        # 피드백 카드에서도 동일한 info-card 스타일 적용 (왼쪽 선 없음)
         empty_space.markdown(f'<div class="info-card feedback-card"><span class="result-text">{displayed_text}</span></div>', unsafe_allow_html=True)
         time.sleep(0.03)
 
@@ -79,21 +87,17 @@ def main():
         "경영진의 수출 의지가 확고하고 예산이 편성되어 있습니까?"
     ]
 
-    # 이전과 동일한 답변 옵션 형식
     options = ["1점 (전혀 아님)", "2점 (미흡)", "3점 (보통)", "4점 (양호)", "5점 (매우 우수)"]
     score_map = {opt: i+1 for i, opt in enumerate(options)}
 
     with st.form("diagnostic_form"):
         total_score = 0
         for i, q in enumerate(questions):
-            # 질문 카드 디자인 유지
             st.markdown(f'<div class="info-card"><div class="question-title">{i+1}. {q}</div></div>', unsafe_allow_html=True)
-            # 답변 선택 세션: 이전과 동일한 가로형 라디오 버튼
             answer = st.radio(f"radio_{i}", options=options, index=2, horizontal=True, label_visibility="collapsed")
             total_score += score_map[answer]
         
         st.write("")
-        # 버튼 크기 제어 (중앙 배치)
         _, col_btn, _ = st.columns([1.5, 2, 1.5])
         with col_btn:
             submit_button = st.form_submit_button(label="종합 진단 결과 확인", use_container_width=True)
